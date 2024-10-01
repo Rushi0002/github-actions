@@ -1,32 +1,31 @@
 name: Generate Ascii Artwork
 
-on:
-  push
+on: push
 
 jobs:
   job1:
-   runs-on: ubuntu-latest
-   steps: 
-   - name: Install Cowsay Program
-     run: sudo apt-get install cowsay -y
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Cowsay Program
+        run: sudo apt-get install cowsay -y
 
-   - name: Execute Cowsay cmd
-     run: cowsay -f dragon "Run for cover" >> dragon.txt
+      - name: Execute Cowsay cmd
+        run: cowsay -f dragon "Run for cover" >> dragon.txt
 
-   - name: Upload dragon txt file
-     uses: actions/upload-artifact@v3
-     with:
-      name: my-artifact
-      path: dragon.txt
+      - name: Upload dragon txt file
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: dragon.txt
 
   job2:
-   needs: job1
-   runs-on: ubuntu-latest
-   steps:
-   - name: Download dragon txt file
-     uses: actions/download-artifact@v3
-     with:
-      name: my-artifact
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download dragon txt file
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
 
-   - name: Test file exists
-     run: grep -i "dragon" gragon.txt 
+      - name: Test file exists
+        run: grep -i "dragon" dragon.txt
